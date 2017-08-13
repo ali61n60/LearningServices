@@ -22,8 +22,6 @@ namespace LearningServices
             SetContentView(Resource.Layout.Main);
             registerRecevers();
 
-            // Get our button from the layout resource,
-            // and attach an event to it
             _button = FindViewById<Button>(Resource.Id.MyButton);
             _button.Click += _button_Click;
         }
@@ -50,12 +48,14 @@ namespace LearningServices
         {
             StopService(new Intent(this, typeof(MyService)));
             _serviceStarted = false;
+            UpdateMessage("Service Stopped");
         }
 
         private void startService()
         {
             StartService(new Intent(this, typeof(MyService)));
             _serviceStarted = true;
+            UpdateMessage("Service Started");
         }
 
         public void UpdateMessage(string message)

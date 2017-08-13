@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -35,22 +36,16 @@ namespace LearningServices
             return StartCommandResult.Sticky;
         }
 
-        private void startBackgroundTask(Intent intent, int startId)
+        private async Task startBackgroundTask(Intent intent, int startId)
         {
             //TODO every 5 sec broadcast time
-            Thread workingThread=new Thread(run);
-            workingThread.Start();
-        }
+            Intent intentService = new Intent("MyService");
 
-        protected void run()
-        {
-            Intent intent = new Intent("MyService");
-            
             while (_serviceRunning)
             {
-                intent.PutExtra(ServiceTimeKey, "the time is" + DateTime.Now.ToLongTimeString());
-                SendBroadcast(intent);
-                Thread.Sleep(2000);
+                intentService.PutExtra(ServiceTimeKey, "the time is" + DateTime.Now.ToLongTimeString());
+                SendBroadcast(intentService);
+               await Task.Delay(2000);
             }
         }
 
