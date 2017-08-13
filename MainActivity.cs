@@ -8,6 +8,7 @@ using Android.OS;
 
 namespace LearningServices
 {
+    //https://developer.xamarin.com/guides/android/application_fundamentals/services/part_1_-_started_services/
     [Activity(Label = "LearningServices", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
