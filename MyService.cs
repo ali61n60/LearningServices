@@ -56,12 +56,21 @@ namespace LearningServices
 
         private void sendNotification()
         {
-            var nMgr = (NotificationManager)GetSystemService(NotificationService);
-            var notification = new Notification(Resource.Drawable.Icon, "Message from MyService");
-            var pendingIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(MainActivity)), 0);
-            notification.SetLatestEventInfo(this, "Demo Service Notification", "Message from demo service", pendingIntent);
-            nMgr.Notify(0, notification);
+            NotificationManager notificationManager = (NotificationManager)GetSystemService(NotificationService);
+            Notification.Builder nBuilder = new Notification.Builder(ApplicationContext);
+            PendingIntent pendingIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(MainActivity)), 0);
+            // set intent so it does not start a new activity
+            Notification notification = nBuilder.SetContentIntent(pendingIntent)
+                .SetSmallIcon(Resource.Drawable.Icon)
+                .SetWhen(DateTime.Now.Ticks)
+                .SetProgress(100,25,false)
+                .SetContentTitle("Demo Service Notification")
+                .SetContentText("Message from demo service").Build();
+            notification.Flags |= NotificationFlags.AutoCancel;
+            notificationManager.Notify(0, notification);
+
         }
+       
 
         public override void OnDestroy()
         {

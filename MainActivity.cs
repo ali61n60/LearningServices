@@ -1,6 +1,7 @@
 ﻿using System;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -9,7 +10,7 @@ using Android.OS;
 namespace LearningServices
 {
     //https://developer.xamarin.com/guides/android/application_fundamentals/services/part_1_-_started_services/
-    [Activity(Label = "LearningServices", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "LearningServices", MainLauncher = true, Icon = "@drawable/icon" ,LaunchMode = LaunchMode.SingleInstance)]
     public class MainActivity : Activity
     {
         Button _button;
